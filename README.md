@@ -42,7 +42,7 @@ One is Running on Azure Kuberntes Service (AKS), and other on Local Virtual Mach
 GitlabCI and ArgoCD is used for the CI/CD part, Trivy is covering the security part, On Kubernetes the application will run, Azure is providing the cloud Infrastructure, Prometheus and Grafana is completing the Monitoring. This way a whole DevSecOps Project is getting Complete. I am using Azure kanban Boards to keep track of my Progress😉.
 
 ## Steps to follow from testing to deployment
-- GitLab Section
+### - GitLab Section
   1. Local Runner installation
   2. Creating Pipeline file
   3. Testing the application
@@ -50,7 +50,7 @@ GitlabCI and ArgoCD is used for the CI/CD part, Trivy is covering the security p
   5. Scanning the Image
   6. Pushing the Image
 
-- Kubernetes Section
+### - Kubernetes Section
   1. Cluster Setup
   2. ArgoCD Installation
   3. ArgoCD Configuration
