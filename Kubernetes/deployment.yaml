@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-app
+  labels:
+    app: netflix-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netflix-app
+  template:
+    metadata:
+      labels:
+        app: netflix-app
+    spec:
+      imagePullSecrets:
+      - name: gitlab-registry-key
+      containers:
+      - name: netflix-app
+        image: MY-IMAGE-NAME
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
