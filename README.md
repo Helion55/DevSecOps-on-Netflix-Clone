@@ -39,7 +39,7 @@ A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I
    - Visualizing the Cluster information scrapped by Prometheus.
 
 ## Steps to follow from testing to deployment
-### - GitLab Section
+### GitLab Section
   1. Local Runner installation
   2. Creating Pipeline file
   3. Testing the application
@@ -47,25 +47,25 @@ A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I
   5. Scanning the Image
   6. Pushing the Image
 
-### - Ansible Section
+### Ansible Section
   1. Installing Ansible
   2. Vagrant Installation
   3. Configuring Ansible
   4. Executing the Playbook
 
-### - Terraform Section
+### Terraform Section
   1. Terraform Installation
   2. Azure CLI Setup
   3. Modifying Terraform Variables
   4. Applying the Terraform files
 
-### - Monitoring Section
+### Monitoring Section
   1. Installing Prometheus and Grafana
   2. Accessing the Applications
   3. Connecting Grafana to Prometheus
   4. Creating the Dashboard
 
-### - Kubernetes Section
+### Kubernetes Section
   1. Cluster Setup
   2. ArgoCD Installation
   3. ArgoCD Configuration
@@ -186,7 +186,7 @@ First run ``` terraform init ``` command to install the providers.
 Then run ``` terraform plan ``` to see waht Terraform will do on Azure.
 Apply the terraform files by ``` terraform apply ``` command, it will create the infrastructure as defined int he files.
 
-### - Monitoring Section
+### Monitoring Section
 Monitoring the whole cluster Prometheus and Grafana is used. 
 Prometheus will scrape the matrics of the cluster, it uses PromQL for it, store the data in its own database. Prometheus have its endpoints from where data is sent to its database. It can be configured to which set of metrics you want to fetch, specify different clusters or endpoints also.
 This metrics data is hard to visualise for that purpose Grafana is connected with prometheus which creates dashboard to visualize this data.
