@@ -186,7 +186,7 @@ First run ``` terraform init ``` command to install the providers.
 Then run ``` terraform plan ``` to see waht Terraform will do on Azure.
 Apply the terraform files by ``` terraform apply ``` command, it will create the infrastructure as defined int he files.
 
-### Monitoring Section
+## Monitoring Section
 Monitoring the whole cluster Prometheus and Grafana is used. 
 Prometheus will scrape the matrics of the cluster, it uses PromQL for it, store the data in its own database. Prometheus have its endpoints from where data is sent to its database. It can be configured to which set of metrics you want to fetch, specify different clusters or endpoints also.
 This metrics data is hard to visualise for that purpose Grafana is connected with prometheus which creates dashboard to visualize this data.
