@@ -147,16 +147,30 @@ Install Vagrant from https://developer.hashicorp.com/vagrant/install
 Install VirtualBox from https://www.virtualbox.org/wiki/Downloads
 
 Use the Vagrantfile above to create the VM.
-use command ``` vagrant up``` to start the virtual machine, get the IP of the machine by accessing the machine using ``` vagrant ssh``` command.
+use command 
+``` 
+vagrant up
+``` 
+to start the virtual machine, get the IP of the machine by accessing the machine using
+``` 
+vagrant ssh
+``` 
+command.
 
 ### 3. Configuring Ansible
-Create a ssh-key pair and connect with the VM. Paste your VM's IP in the ansible inventory file, many remote systems can be groupd together in inventory file. Ansible.conf file could be created to configure Ansible for this Playbook execution. Now execute ``` ansible all -i inventory -m ping ``` to verify a successful connection. If SSH is done previously from your system the saved fingerprints will be used to verify and public key to connect with the system.
+Create a ssh-key pair and connect with the VM. Paste your VM's IP in the ansible inventory file, many remote systems can be groupd together in inventory file. Ansible.conf file could be created to configure Ansible for this Playbook execution. Now execute 
+``` 
+ansible all -i inventory -m ping 
+``` 
+to verify a successful connection. If SSH is done previously from your system the saved fingerprints will be used to verify and public key to connect with the system.
 
 ### 4. Executing the Playbook
 Ansible comes with module for almost every task, now ping is on of those module and -m flag is the module. If every task is completed on by one this it will same as executing shell commands. So Playbook is file where you will specify every tasks you want to do with Ansible and execute that once, it apply all of them automatically. Ansible compares the state you want vs what is the current state then changes the state as needed.
 To execute a Playbook use this command...
 
-``` ansible-playbook PLAYBOOK-NAME.yaml -i inventory``` 
+```
+ansible-playbook PLAYBOOK-NAME.yaml -i inventory
+``` 
 
 You can use ```-vvv```or ```-vv``` for descriptive output.
 
@@ -166,7 +180,10 @@ Ansible was configuring the infrastructure but to provision it Terraform is used
 
 ### 1. Terraform Installation
 Terraform can be installed from https://developer.hashicorp.com/terraform/install
-To check installation type ```terraform --version```
+To check installation type 
+```
+terraform --version
+```
 
 ### 2. Azure CLI Setup
 Azure CLI is needed to apply Terraform files, and it also have the authentication rights to connect with Azure. To install it https://learn.microsoft.com/en-us/cli/azure/install-azure-cli foloow this link.
@@ -182,9 +199,21 @@ Terraform varibles are usesd to give values as per our needs. Give resource grou
 
 ### 4. Applying the Terraform files
 
-First run ``` terraform init ``` command to install the providers.
-Then run ``` terraform plan ``` to see waht Terraform will do on Azure.
-Apply the terraform files by ``` terraform apply ``` command, it will create the infrastructure as defined int he files.
+First run 
+``` 
+terraform init 
+``` 
+command to install the providers.
+Then run 
+``` 
+terraform plan 
+``` 
+to see waht Terraform will do on Azure.
+Apply the terraform files by 
+``` 
+terraform apply
+``` 
+command, it will create the infrastructure as defined int he files.
 
 ## Monitoring Section
 Monitoring the whole cluster Prometheus and Grafana is used. 
@@ -194,27 +223,53 @@ This metrics data is hard to visualise for that purpose Grafana is connected wit
 ### 1. Installing Prometheus and Grafana
  
 Helm is used to install both of them in the cluster. It will create Deployment, Service components of them which helps to access the application on that cluster itself. To create them use this commands...
-``` helm repo add prometheus-community https://prometheus-community.github.io/helm-charts ``` this will add Helm repo Prometheus to your system.
-update your repo by executing ``` helm repo update ```.
-To install the application ``` helm install prometheus prometheus-community/prometheus ``` this command should be executed.
+```
+ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts 
+ ``` 
+ this will add Helm repo Prometheus to your system.
+update your repo by executing
+ ``` 
+ helm repo update 
+ ```
+To install the application 
+```
+ helm install prometheus prometheus-community/prometheus 
+ ``` 
+ this command should be executed.
 
 To install Grafana follow the same steps..
-```helm repo add grafana https://grafana.github.io/helm-charts ```
+```
+helm repo add grafana https://grafana.github.io/helm-charts 
+```
 
-``` helm repo update```
+``` 
+helm repo update
+```
 
-``` helm install grafana grafana/grafana ```
+``` 
+helm install grafana grafana/grafana 
+```
 
 ### 2. Accessing the Applications
 To access these Application you have to expose those services. After the installaton you will get the Grafana Password from a secret created in the cluster, it will show after helm install command.
 
 Exposing the applicaion services ...
 
-Grafana service ``` kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext ```
+Grafana service 
+``` 
+kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext 
+```
 
-Prometheus service ``` kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext ```
+Prometheus service 
+``` 
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext 
+```
 
-Find minikube ip using ``` minikube ip``` command. paste the ip amd port number from the exposed service in the browser.
+Find minikube ip using 
+``` 
+minikube ip
+``` 
+command. paste the ip amd port number from the exposed service in the browser.
 Get the Grafana Password from the secret and use it to login in grafana, username=admin
 
 ### 3. Connecting Grafana to Prometheus
@@ -284,7 +339,14 @@ Create this by executing this command,
 kubectl create secret docker-registry SECRET-NAME   --docker-server=registry.gitlab.com  --docker-username=GITLAB-USERNAME   --docker-password="ACCESS-TOKEN" -n YOUR-NAMESPACE
 ```
 ### 5. Deployment of Application
-Refresh the Application created by ArgoCD or modify any repository argument if Yaml Menifests are not fetched. When the pods creation is completed access the application by first viewing the service ``` kubectl get svc -n APPLICATION-NAMESPACE``` and then exposing the service by ```minikube service SERVICE-NAME --url``` .
+Refresh the Application created by ArgoCD or modify any repository argument if Yaml Menifests are not fetched. When the pods creation is completed access the application by first viewing the service 
+```
+ kubectl get svc -n APPLICATION-NAMESPACE
+ ``` 
+ and then exposing the service by 
+ ```
+ minikube service SERVICE-NAME --url
+ ``` 
 
 The Netflix Application is ready...🚀
 
