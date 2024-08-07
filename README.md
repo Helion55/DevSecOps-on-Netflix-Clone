@@ -2,10 +2,9 @@
 
 ![Diagram](https://github.com/Helion55/DevSecOps-on-Netflix-Clone/blob/main/project-diagram.jpg?raw=true)
 
-## About
+## Project Overview
 
-DevSecOps practices applied on Netflix-Clone application build with NodeJS and Deployed on 2 Kuberntes Clusters.
-One is Running on Azure Kuberntes Service (AKS), and other on Local Virtual Machine. Goal is to Setup the AKS with Terraform and Local Virtual Machine with Ansible. Which are one of the best Infrastructure as a Code Technologies right now. Let me introduce with the whole tech-stack now for the DevOps or DevSecOps Part.
+A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I have created 2 Kubernetes clusters. One on Vagrant machine using Ansible and other on Azure(AKS) using Terraform. The application was build and containerized form a pipeline build on GitLabCI and then Deployed on the clusters using ArgoCD. Container image was created from Docker and scanned with Trivy. Helm was used for installing ArgoCD, Prometheus and Grafana. Prometheus is fetching cluster health matrics and Grafana is showing this information on a Dashboad. To do the project follow the steps below ...
 
 ### Tech-Stack
 
@@ -39,8 +38,6 @@ One is Running on Azure Kuberntes Service (AKS), and other on Local Virtual Mach
 9. Grafana
    - Visualizing the Cluster information scrapped by Prometheus.
 
-GitlabCI and ArgoCD is used for the CI/CD part, Trivy is covering the security part, On Kubernetes the application will run, Azure is providing the cloud Infrastructure, Prometheus and Grafana is completing the Monitoring. This way a whole DevSecOps Project is getting Complete. I am using Azure kanban Boards to keep track of my Progress😉.
-
 ## Steps to follow from testing to deployment
 ### - GitLab Section
   1. Local Runner installation
@@ -57,12 +54,34 @@ GitlabCI and ArgoCD is used for the CI/CD part, Trivy is covering the security p
   4. Repository Connection
   5. Deployment of Application
 
+### - Ansible Section
+  1. Installing Ansible
+  2. Vagrant Installation
+  3. Configuring Ansible
+  4. Executing the Playbook
+
+### - Terraform Section
+  1. Azure CLI Setup
+  2. Terraform Installation
+  3. Modifying Terraform Variables
+  4. Applying the Terraform file
+
+### - Monitoring Section
+  1. Installing Prometheus and Grafana
+  2. Accessing the Applications
+  3. Connecting Grafana to Prometheus
+  4. Creating the Dashboard
+
+
 ## Gitlab Section
 
 ### 1. Local Runner Installation
+
 Runners are the Machines where our testing script will be executd. Gitlab provides its own runner which uses Ruby Image by default. As our application need Node and Docker image both and in Local Machine having them already, its very convinient to use the Local Machine as Runner. 
+
 - Install the GitLab Runner Application from this url:https://docs.gitlab.com/runner/install/linux-manually.html .
-- Now on GitLab go to Settings->CI/CD->Runners->Create Runner and execute this commands on the machine where Runner is Installed
+
+- Now on GitLab go to Settings->CI/CD->Runners->Create Runner and executing this commands on the machine where Runner is Installed
 ```
 gitlab-runner register  --url https://gitlab.com  --token Your-Runner-Token
 ```
@@ -71,17 +90,18 @@ To run the Runner manually type
 gitlab-runner run
 ```
 Give a tag for your runner, this tag will be used in the pipeline script. Now you are ready to execute your pipeline script on Local Runner.
+
 ### 2. Creating Pipeline file
 On root of repository create a file named ```.gitlab-ci.yml``` . This is the default name GitLab search for pipeline file.
 
 ### 3. Testing the application
-As local machine have npm already installed this commands are typed to test and fix the code.
+As local machine have npm already installed type this commands to test and fix the code.
 ```
 npm install
 npm audit fix
 ```
 ### 4. Building Docker Image
-A docker argument should passed during build, the API Key of the The Movie Data Base Website https://www.themoviedb.org/ . Create a account and create a your API Key in TMDB. Copy and paste the API Key on docker build command
+A docker argument should passed during build, the API Key of the The Movie Data Base Website https://www.themoviedb.org/ . Create a account and create a API Key in The Movie Database website. Copy and paste the API Key on docker build command
 ```
   docker build --build-arg TMDB_V3_API_KEY=TMDB-WEBSITE-API-KEY -t $CI_REGISTRY_IMAGE/YOUR-IMAGE-NAME:YOUR-IMAGE-VERSION .
 ```
@@ -167,6 +187,37 @@ kubectl create secret docker-registry SECRET-NAME   --docker-server=registry.git
 Refresh the Application created by ArgoCD or modify any repository argument if Yaml Menifests are not fetched. When the pods creation is completed access the application by first viewing the service ``` kubectl get svc -n APPLICATION-NAMESPACE``` and then exposing the service by ```minikube service SERVICE-NAME --url``` .
 
 The Netflix Application is ready...🚀
+
+This way a whole DevSecOps Project is getting Complete. I have used Azure kanban Boards to keep track of my Progress😉.
+
+## Ansible Section
+As Infrastructure configuration is a tedious work if configuring multiple systems and installing multiple tools by doing SSH, Ansible gives you the power to do this in seconds. It uses SSH to connect to the machines and then execute your commands you specified in file called Playbook. Ansible has Module for almost every tool you use, which is more flexible instead of simple shell commands. 
+An Ansible Playbook is created to install the tools and dependencies to run our application on Vagrant machine. 
+Docker, Minikube, Kubectl and other tools are installed using the Ansible Playboook.
+
+### 1. Installing Ansible
+Ansible can be downloaded using linux package managers or Python, Here Python is used.
+Execute these commands...
+
+```
+python3 -m pip install --user ansible
+```
+to verify execute,
+```
+ansible --version
+```
+### 2. Vagrant Installation
+Vagrant is a Virtual machine creater and manager, which sits perfectly between Docker and Traditional Hypervisor System. It uses a vagrant file to create a VM as our need. VirtualBox is used to run the the VM.
+
+Install Vagrant from https://developer.hashicorp.com/vagrant/install
+Install VirtualBox from https://www.virtualbox.org/wiki/Downloads
+
+Use the Vagrantfile above to create the VM.
+use command ``` vagrant up``` to start the virtual machine, get the IP of the machine by accessing the machine using ``` vagrant ssh``` command.
+
+### 3. Configuring Ansible
+Create a ssh-key pair and connect with the VM.
+
 
 ## Contributing
 I will be very glad to accept any contribution which will take this whole project one step further.
