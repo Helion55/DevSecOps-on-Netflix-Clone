@@ -4,12 +4,12 @@
 
 ## Project Overview
 
-A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I have created 2 Kubernetes clusters. One on Vagrant machine using Ansible and other on Azure(AKS) using Terraform. The application was build and containerized form a pipeline build on GitLabCI and then Deployed on the clusters using ArgoCD. Container image was created from Docker and scanned with Trivy. Helm was used for installing ArgoCD, Prometheus and Grafana. Prometheus is fetching cluster health matrics and Grafana is showing this information on a Dashboad. To do the project follow the steps below ...
+A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I have created 2 Kubernetes clusters. One on Vagrant machine using Ansible and other on Azure(AKS) using Terraform. The application was build and containerized form a pipeline build on GitLabCI and then Deployed on the clusters using ArgoCD. Container image was created from Docker and scanned with Trivy. Helm was used for installing ArgoCD, Prometheus and Grafana. Prometheus is fetching cluster health matrics and Grafana is showing this information on a Dashboad. This project can be rebuild following the steps below .
 
 ### Tech-Stack
 
 1. GitLab 
-   - Implementing the Pipeline of Test and Build.
+   - Executing the Pipeline of Test and Build.
 
 2. Docker 
    - Containerizing the applications.
@@ -18,7 +18,7 @@ A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I
    - Scanning the Docker Images.
 
 3. Kuberntes
-   - Running the whole applications on.
+   - Running the whole application.
 
 4. ArgoCD 
    - Implementing the Continuous Deployment.
@@ -30,10 +30,10 @@ A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I
    - Installing Kubernetes and Launching the application on Local Machine.
 
 7. Helm
-   - Helm Charts are used for the Deployment and Service files for the Cluster.
+   - Installing ArgoCD, Prometheus, Grafana.
 
 8. Prometheus
-   - For scrapping the cluster resources data.
+   - For scrapping the cluster health data.
 
 9. Grafana
    - Visualizing the Cluster information scrapped by Prometheus.
@@ -79,7 +79,7 @@ A Netflix-Clone application Build-Test and Deployed using DevSecOps practices. I
 
 Runners are the Machines where our testing script will be executd. Gitlab provides its own runner which uses Ruby Image by default. As our application need Node and Docker image both and in Local Machine having them already, its very convinient to use the Local Machine as Runner. 
 
-- Install the GitLab Runner Application from this url:https://docs.gitlab.com/runner/install/linux-manually.html .
+- Install the GitLab Runner Application from this url: https://docs.gitlab.com/runner/install/linux-manually.html .
 
 - Now on GitLab go to Settings->CI/CD->Runners->Create Runner and executing this commands on the machine where Runner is Installed
 ```
