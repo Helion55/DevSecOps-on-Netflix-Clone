@@ -1,0 +1,4 @@
+appName: netflix-app
+iamge:
+  name: MY_IMAGE_NAME
+  version: latest
